@@ -1,0 +1,60 @@
+# How to Deploy Enterprise Mobile Apps
+                                     
+Posted January 25, 2013	By Aaron Weiss
+http://www.enterpriseappstoday.com/crm/how-to-deploy-enterprise-mobile-apps.html
+
+
+## Publishing private apps for the enterprise in consumer-oriented app stores? Here is what you need to know.
+
+We now live in an app-based world, as illustrated by the fact that over [half the U.S. population] ( http://www.rethink-wireless.com/2012/11/05/us-smartphone-penetration-passes-50.htm ) now owns a smartphone. In the workplace, the ubiquity of smartphones combined with the [growing popularity of BYOD policies] ( http://www.eweek.com/mobile/byod-programs-essential-to-business-success-dell/ ) has led to over 30 percent of mobile service revenues coming from the enterprise market – a figure [expected to grow] ( http://www.abiresearch.com/press/smartphones-byod-and-mobile-data-plans-to-drive-34 ) at double the rate of consumer-based revenues.
+
+Although enterprise is embracing mobile apps, the application ecosystem has largely been a consumer-oriented platform. Consider the Apple App Store. To publish an app to an iPhone or iPad, the usual workflow requires the app author to purchase a developer account, submit the app to Apple for review, and make the app available for the general public through the official App Store. But what if your business builds a custom application for internal use only?
+
+Solving the O365 Mobility Puzzle Download Now
+Apple, Android, and Windows Mobile are catching up to the needs of enterprise. Publishing private apps used to be awkward and clunky, but support is improving for all three platforms. Whether an enterprise needs to publish just one or two custom apps, or [build its own private app store] ( http://www.enterpriseappstoday.com/management-software/retooling-app-stores-for-the-enterprise.html ), each mobile platform has its own procedures to navigate.
+
+## iOS Apps Without the App Store
+
+Enterprises that build iOS apps for their own internal use do not want to rely on the App Store for distribution. Publishing to the App Store requires waiting for review approval from Apple, and apps can be installed by anyone visiting the App Store.
+
+One solution to this problem is to instead use the Apple [iOS Developer Enterprise Program] ( https://developer.apple.com/programs/ios/enterprise/ ) . The program requires a $299 yearly license, and the license must be renewed as long as any apps created under it continue to be used.
+
+After developing the app itself, you need two pieces to complete the puzzle: a distribution certificate and a provisioning profile.  
+
+The [enterprise distribution certificate] (http://developer.apple.com/devcenter/ios) must be signed for the app using Xcode. The enterprise provisioning profile must be installed on each target device. End users can be directed to a Web-hosted URL to install the provisioning profile.
+
+Note that a distribution certificate expires after one year. Before it expires, you must acquire a new certificate and re-sign the app.  
+
+Apps developed through the Developer Enterprise Program cannot also be submitted to the App Store. You can distribute an app to end users by giving them the .ipa file directly, such as an email attachment or URL to a self-hosted file.
+
+You will also need to roll your own app update solution, which may simply involve directing users to a new .ipa file or coding a self-updater into the app itself.
+
+## Android Apps for the Enterprise
+
+From its inception, Google’s Android platform has been positioned as being a very open system. Indeed, its openness means that deploying private enterprise apps for the Android ecosystem has particularly low barriers to entry.
+
+No developer license is required to build an Android app. Apps must be signed with a digital identity certificate, but this certificate can be self-signed and need not be purchased from a third-party certificate authority.
+
+Most Android devices, including smartphones and tablets, can easily be configured to install apps from outside the official Google Play app market. In the Android settings menu under “applications” there is a checkbox to allow app installs from “unknown sources.” With this setting checked, end users can simply be directed to an app .apk file such as through an email attachment or self-hosted URL.
+
+Unlike iOS, there is nothing else needed to authorize use of the app and no ongoing fee required to maintain the validity of deployed apps.
+
+But like iOS, deploying an app directly to the target device will not automatically manage updates. Aside from building your own update code into the app, Google now offers the option of creating a [private app store] ( http://arstechnica.com/information-technology/2012/12/google-now-lets-businesses-build-private-android-app-stores/ ) on top of their Play market. This means businesses can use the discovery and deployment features of the Play store but limited to private apps distributed to a limited user base.
+
+## Windows Phone 8
+
+Creating and deploying private enterprise apps for the new Windows Phone 8 platform resembles the process for iOS more than Android.
+
+A business wishing to deploy private WP8 apps must first register for a [Microsoft Dev Center] ( http://msdn.microsoft.com/en-us/library/windowsphone/help/jj206719%28v=vs.105%29.aspx ) company account at a cost of $99 per year. You then turn to Symantec for an [Enterprise Certificate] ( http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj206943%28v=vs.105%29.aspx ), which is used to generate an [Application Enrollment Token] ( http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj735576(v=vs.105).aspx ). This token must be installed on target devices to allow installation of your private app. The app itself must be signed using a PFX file exported from the Enterprise Certificate.
+
+Microsoft encourages enterprises to use its new [Company Hub] ( http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj720571%28v=vs.105%29.aspx ) feature, which is an API for building a private app market that can manage discovery, deploying and updating enterprise apps. A Company Hub might be overkill for one or two private apps, but it is the best way to manage a large and growing application inventory.
+
+## Third-party App Stores
+
+These days many enterprises need to build and deploy apps for multiple mobile platforms, particularly iOS and Android. Managing a large collection of private, multi-platform apps can be streamlined using a third-party enterprise app store.
+
+Products such as [Symantec App Center Enterprise Edition] ( http://www.symantec.com/app-center-enterprise-edition ), [Apperian] ( http://www.apperian.com/ ) , and [Enterprise AppZone] ( http://www.enterpriseappzone.com/ )  can unify discovery, deployment and updating of private apps. Using a private app store does not alleviate the development requirements for each individual platform; so, for example, iOS apps still require a developer certificate and provisioning profile.
+
+Private app stores also allow enterprises to include discovery and management of approved third-party apps, making them a one-stop-shopping destination for employees and ensuring that only apps approved by the company are installed on target devices.
+
+[Aaron Weiss] ( http://aaron.bordella.com/technology-writing-web-periodical/ )  is a technology writer and frequent contributor to eSecurity Planet and Wi-Fi Planet.

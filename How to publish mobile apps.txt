@@ -1,0 +1,18 @@
+How to publish mobile apps.txt
+
+We decided then to roll our own "AppStore", which is now open sourced at https://github.com/CyberAgent/AppZone Coupled with Jenkins we are having great results. In-App update notifications would be the next step.
+
+
+Itunes connect user guide
+
+There is always the horse’s mouth: https://developer.apple.com/library/ios/referencelibrary/GettingStarted/RoadMapiOS/
+
+https://developer.android.com/training/basics/firstapp/index.html
+
+Here’s the Swift version for iOS: https://developer.apple.com/library/prerelease/ios/referencelibrary/GettingStarted/DevelopiOSAppsSwift/
+
+Submitting to the App Store is a separate thing: https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/SubmittingYourApp/SubmittingYourApp.html
+
+// My developer wants to post an application .. what now
+
+// 
