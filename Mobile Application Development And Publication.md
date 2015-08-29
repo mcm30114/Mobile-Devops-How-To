@@ -37,7 +37,7 @@ In an enterprise environment, there are many layers to the applications developm
 
 ![alt text][figure-1]
 
-[figure-1]: https://raw.githubusercontent.com/mcm30114/Mobile-Devops-How-To/master/DevOps%20Flow.png "Figure 1"
+[figure-1]: https://raw.githubusercontent.com/mcm30114/Mobile-Devops-How-To/master/Images/DevOps%20Flow.png "Figure 1"
 
 Figure 1
 
@@ -88,7 +88,7 @@ In an effort to keep it simple, refer to Figure 2 below:
 
 ![alt text][figure-2]
 
-[figure-2]: https://raw.githubusercontent.com/mcm30114/Mobile-Devops-How-To/master/DevOps%20Flow%20Mobile%20Apps.png "Figure 2"
+[figure-2]: https://raw.githubusercontent.com/mcm30114/Mobile-Devops-How-To/master/Images/DevOps%20Flow%20Mobile%20Apps.png "Figure 2"
 
 Figure 2
 
