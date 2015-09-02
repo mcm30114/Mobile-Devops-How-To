@@ -33,7 +33,26 @@ When the Mobile Application is a component of a bigger picture and requires the 
 
 All of these components require a collection of individual team members to direct, operate, and manage.  It is the bringing of the people, process, and technology together that can be a challenge in an organization and some of that challenge has to do with culture, importance and criticality of the mobile app to the overall existing operations of the organization, as well as the maturity of the organization in application development processes.
 
-In an enterprise environment, there are many layers to the applications development and production process. A high level diagram to help show a flow of what takes place once an application is in the process of being developed is shown in Figure 1 below.
+In an enterprise environment, there are many layers to the applications development and production process. Given the relationship of a mobile app to the back end systems that it requires data from, there may be a co-dependency on creating a middleware layer that acts as the access proxy for the mobile application into the back end systems.  
+
+There are a few architectural patterns that come to mind such as "Mobile Backend as a Service" (MBaas), commercially available "mobile middleware" packages, an exposed and managed API manager, or a simple set of defined web services that are exposed by a public facing website that also has defined connections to a back end system, either behind a corporate firewall, or in a defined "yellow zone" area. 
+
+
+> __NOTE:__ In network security terms, a __"Green Zone"__ is an isolated, protected, and known environment.  Think of it as the internal enterprise network that is isolated from the external public internet. A __"Red Zone"__ is an area that is publicly accessible, as in the "public internet".  A __"Yellow Zone"__, sometimes referred to as a __DMZ__, is a controlled sub network segment that allows for file transfer between the RED and GREEN zones, without explicit or continuous connection between the RED and GREEN zones.  It is used for maintaining isolation between the RED and GREEN zones while providing some means for controlled data interchange.
+
+
+All of these "middleware" patterns require a discipline of environment progression to handle the maturity levels of software to be tested against.  As code is produced from individual developers, the complete solution is then provisioned into an environment for validation and testing. This would include the need to produce the Mobile Applications and the Mobile Middleware per environment.  An example of the environments that would be required to test the complete "mobile solution" (client and server components) are as follows:
+
+ __DEVELOPMENT (DEV)__ - The Development Environment is typically the first integration environment where successful initial builds within a sprint are deployed.  Developers should have the ability to "build on demand" to deploy into this environment. Once code has been validated as stable, it should be promoted to the next environment.  Also, code that is "promoted" from DEV should NEVER be recompiled for successive environments.  They should be CONFIGURABLE for each environment.
+ 
+__Systems Integration Test (SIT)__ - Systems Integration Test is an environment of stabilty and depending on the process of the team, can be deployed into either at the end of a sprint, or in several iterations in the sprint.
+
+__User Acceptance Testing (UAT)__ - User Acceptance Testing is an environment where the product is stable, and is being exposed to a larger audience for testing and validation.  Beta testing may occur here. 
+
+__Staging__ and __Production__ Environments should be identical in size, capacity, performance, and availability. This allows for accurate performance testing as well as providing a peer environment for immediate upscaling in case of strong user demand.  It also provides a mechanism for publication of code to one environment ("Staging") while the existing version is running active on the other environment ("Production").  Once the N+1 version is proven as stable as ready for production, a cutover can be performed such that "Staging" transitions to "Production", the existing "Production" is brought off line and becomes the new "Staging" (See "Blue-Green" production techniques)
+
+
+A high level diagram to help show a flow of what takes place once an application is in the process of being developed is shown in Figure 1 below.
 
 ![alt text][figure-1]
 
@@ -66,7 +85,7 @@ Also in Figure 1 above, as shown in the "boxes" there are some general processes
 | G | Artifacts / Configuration Management | Results of the build process are taken and stored in an intermediate location.  Can contain content, application components (applications, deployment packages, bundles, etc).  Version number sensitive.  |
 | H | Deploy / Release Management | A set of tasks that are typically managed by the OPS team to define what was built, what gets deployed, and when the code will be promoted from environment to environment. Requires that versioned content is pulled from the artifact management tool and then deployed per automation process to the target deployment environments. |
 | I | BLANK | (Intentionally Omitted) |
-| J | Deployment Environments | As code is deployed and matured, it progresses from environment to environment.  <br><br> __DEV__ - The Development Environment is typically the first integration environment where successful initial builds within a sprint are deployed.  Developers should have the ability to "build on demand" to deploy into this environment. Once code has been validated as stable, it should be promoted to the next environment.  Also, code that is "promoted" from DEV should NEVER be recompiled for successive environments.  They should be CONFIGURABLE for each environment.   <br><br> __SIT__ - Systems Integration Test is an environment of stabilty and depending on the process of the team, can be deployed into either at the end of a sprint, or in several iterations in the sprint. <br><br> __UAT__ - User Acceptance Testing is an environment where the product is stable, and is being exposed to a larger audience for testing and validation.  Beta testing may occur here. <br><br> __Staging__ and __Production__ Environments should be identitical in size, capacity, performance, and availability. This allows for accurate performance testing as well as providing a peer environment for immediate upscaling in case of strong user demand.  It also provides a mechanism for publication of code to one environment ("Staging") while the existing version is running active on the other environment ("Production").  Once the N+1 version is proven as stable as ready for production, a cutover can be performed such that "Staging" transitions to "Production", the existing "Production" is brought off line and becomes the new "Staging" (See "Blue-Green" production techniques) |
+| J | Deployment Environments | As code is deployed and matured, it progresses from environment to environment.  <br><br> Optimally, the "code" is developed one time and deployed to the DEV environment.  Promoting it from environment to environment should be managed by configuration management tools (Chef, Puppet, Urban Code Deploy, or other scripting methods). |
 | K | Provisioning / Environment Configuration Management | Tools and processes that the OPS team then uses to bring quality and consistency to the establishment of the deployment environments. Automation and repeatability is key here.  Tools such as "Chef", "Puppet", "Docker" may be seen in these sections. |
 
 
@@ -83,6 +102,8 @@ The mobile workflow in itself is a modification of the previously illustrated hi
 In some instances where the mobile app is the only asset being developed and deployed -- where it has no dependency on other back end systems to make it a complete and functioning application -- then the Mobile Application Development workflow can be much smaller and more self contained.
 
 Where the Mobile Application is part of a larger eco-system -- where there are multiple back end systems of record (a Profile system, a payment system, a catalog system, a transactional system, etc), where there are multiple "channels" of interaction with the system(s) such as customers being able to reach a customer service person to verify a transaction that they performed on the web, or on a mobile device -- then the interaction of interdependencies on with other systems can make the act of Mobile Application Development and Deployment much more complicated.
+
+Examples of this level of complication could be the need to be in alignment with constantly revising web services or exposed API's, alignment of code capabilities between Mobile and MBaaS code when a new feature is rolled out (version control is another related issue here), or a general environment change, as in the introduction of a new component for the composite solution. 
 
 In an effort to keep it simple, refer to Figure 2 below:
 
@@ -145,8 +166,132 @@ As an additional note, it is not uncommon for an organization to deliver one ver
 Now that you have a good orientation on what the process looks like, lets get into some details -- where to look for more information, lessons learned, suggestions on processes, etc.
 
 
+## Mobile Development Process Specifics
 
-## @@ more stuff to come here @@
+### DevOps in context of Mobile application development
+"DevOps" is quickly becoming an *overloaded* term. Some folks refer to it as a process, some folks refer to it as a specific implementation of a set of products to enable a workflow. I'd like to keep any sense of "DevOps" at the level where it is an intention to move the product to completion in an automated and consistent manner. 
+
+The intent of this document is to help show the DevOps processes needed to take an application from when it is checked into Source control from a developer's workstation through the process where it can be deployed onto a user's device. 
+
+ 
+
+### Out of Scope
+For this revision of the document, the following areas will not be covered:
+
+- MBaaS setup, configuration, or related applications development
+
+- Any project related activities that led up to the "build and deploy" phases of the project.  Issues of design, project engagement best practices, discovery processes, requirements management are presumed to have been handled prior. Issues of post application management will be covered, but not in any particular depth.
+
+- The evangelization of one style of  mobile development approach over another (Mobile Web, Hybrid, Native).  It is expected that the output of the processes that are being defined here will produce an "Application Binary" that can be deployed on a mobile device, traditionally using a "store" paradigm for the ultimate endpoint distribution mechanism.
+
+## Preparation
+
+### Developer Programs
+#### Android
+Training for the Android platform to produce your first app can be found here --> https://developer.android.com/training/basics/firstapp/index.html
+
+To develop and deploy an application onto an Android device, you will need a developer credential from the store that you intend to deliver onto.
+
+Google Play has one set of credentials to 
+
+#### iOS
+
+
+### Collaboration, Documentation, Source Code Management
+
+#### Source Code Management
+
+#### Collaboration Tooling
+
+
+
+## The Build Environment
+
+### Machine Provisioning 
+
+#### iOS Development
+
+#### Android Development
+
+### Attached Test Devices
+
+### Remote Testing
+
+
+
+## The Build Process
+
+### Versioning
+
+### Release Notes
+
+
+## The Deploy Environment
+
+### Internal Team: Beta Testing
+
+### Consumer: App Store (iOS, Android)
+
+#### iOS App Store
+
+#### Android
+
+##### Google Play
+
+##### Other Android Stores
+
+### Enterprise
+
+#### Internal Team: Beta Testing
+
+#### Internal 
+
+## Post Launch Activities
+
+### Analytics
+
+### Store Management / Revision Management
+
+
+## Key Lessons Learned
+
+### Team access to resources
+
+### Remote Access
+
+### Testing Devices
+
+### System Accounts
+
+### Access Control Provisioning
+
+### Developer Program Account Management
+
+#### As a member on a team
+
+#### As the principal owner of the Development Account
+
+### MBaaS Systems Upgrades
+
+## Anti-Patterns
+
+### Overly Distributed Development teams
+- split SCMs
+
+
+
+## Odds and Ends
+
+### Key Event Dates
+
+#### iOS
+
+
+#### Android
+
+
+
+
 
 
 
