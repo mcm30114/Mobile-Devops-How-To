@@ -188,14 +188,77 @@ For this revision of the document, the following areas will not be covered:
 
 ### Developer Programs
 #### Android
+The core android developer site can be found here --> https://developer.android.com/index.html
+
 Training for the Android platform to produce your first app can be found here --> https://developer.android.com/training/basics/firstapp/index.html
 
-To develop and deploy an application onto an Android device, you will need a developer credential from the store that you intend to deliver onto.
+To develop and deploy an application onto an Android device, you will need a developer credential (Signing Certificate).  Signing credentials are typically assigned to the DEVELOPER (person).  
 
-Google Play has one set of credentials to 
+Apps can be self-signed, but that works to the point where you need to test on your own devices. The general security model of the Android OS frowns upon the use and general distribution of self signed certificates. 
+
+In the case of an enterprise, it is probably best to get a "key user" as a developer, or a developer persona, and then use that identity for the developer certifications and signing process.  This certificate can be used during the automated compile process of the build server.
 
 #### iOS
+The core website for Apple developers can be found here --> https://developer.apple.com
 
+##### Standard Developer Program
+By joining the general developer program, you have the ability to develop, sign, and submit an application to the Apple iTunes app store.  The general developer program runs about $99 (US) per year, and includes access to developer training content, videos from past "World Wide Developer Conference" (WWDC) proceedings. Starting in 2015, this one developer program covers the development of both the iOS and Mac OS X development process. 
+
+Applications developed using the general developer program can be tested by using TESTFLIGHT to a controlled list of users, or by deploying onto a registered device (up to 100 devices per year, refreshed at the end of the year).  So testing and deploying an application in an iOS environment is a very controlled process. 
+
+Developer Certificates are issued at the "developer account" level.  Many developers can be on the same team, so certificate management, depending on the structure of the development team, can be a challenge.
+
+Applications are signed twice before they can be loaded on an iOS device from the Apple iTunes Store.  The first signing is the developer themselves.  Then once the application is delivered to, reviewed by, and approved by the Apple iTunes Store team, then Apple's store signs the app. After the final signing from the Apple "Certificate Authority" stamp of approval, then the application can legally be installed on a device, validate that the application can run (certificate checks). 
+
+> __Note:__ In this case, Apple's Store certificate is considered to be the "top level Certificate authority" in the signing process.  This allows Apple to pull or expire an application in the case where either the application is deemed to be dangerous, malicious, or not in alignment with the terms and conditions of the developer agreement. Application certificate withdrawls can happen at the individual application level, or at the organization level. 
+
+##### Enterprise Developer Program
+Additionally, Apple has an ENTERPRISE DEVELOPER program that allows for enterprises (has a "DUNS number") to develop for and deploy internal to the organization without the involvement of Apple in the final signing process. The Enterprise Developer program is a separate program at $299 (US) renewable per year.
+
+The intention of this developer program is to allow an organization to develop their own applications, and for them to be the official "top level certificate authority" in the signing process. This allows the application to be distributed internally, which can be done using "over the air" delivery techniques, or via a more preferred method employing a Mobile Device Management (MDM) system for application delivery control. 
+
+As long as the device that the application is being deployed onto belongs to or is under the control of the Enterprise, for the purpose of their internal business operations only, then this should be compliant to the terms and agreements of the program. 
+
+The issue of risk here, and what Apple wants to avoid, is the ability to distribute at will, outside of the enterprise and in competition with Apple, any applications that can be signed and installed as trusted. 
+
+Some interesting conditions of note:
+
+- The person who signs the agreement for the Enterprise Developer Program must be at a "legal enough" level for official contract signing, as well as the one who will be held responsible (read: taken to court) in the case where the terms and conditions of the agreement are violated. 
+
+- Because the application that is signed with the enterprise certificate can be deployed anywhere, this process is typically used for the deployment and testing of the application prior to its publication to the intended internal audience.  Rather than "chew up" 100 testing slots, you can distribute at will (in a controlled manner) to any testing device in an organization.  It is highly suggested to use an MDM solution in place to control who has what version, to be able to revoke (kill) a "beta" application as needed, etc. 
+
+
+####  Training
+
+There are ample training materials and locations around to get trained.  There are companies like [The Big Nerd Ranch](https://www.bignerdranch.com) (BNR) that specialize in writing books about the development of the mobile platforms, teaching classes, and doing consulting in this general area. BNR covers topics of iOS, Mac OS X, Android, and Ruby development. 
+
+For iOS, Apple has the iTunes U, which is a service for learning by videos.  There is a class called CS-193p from Stanford University that tends to get updated every Fall-Winter time frame to cover the applications development process.
+
+For Android, there are many different online courses that can be taken from groups like Udemy, Lynda.com, Code School, etc. 
+
+#### Hardware
+
+There are a few areas of hardware that need to be in place to do proper development, testing, and deployment of mobile applications
+
+##### Developer Workstations
+
+Apple requires the use of Xcode as a development environment to produce iOS and Macintosh applications.  This requires some form of supported Apple hardware to develop on, as Xcode is only available from either the Apple App Store (for the Mac) or from the Apple Developer program website (which produces a disk image (.dmg) of a file that can only run on a Mac).  Loading and configuring XCode will also load in documentation and the required SDK's for iOS development. 
+
+Supported workstations are: Apple iMac, Mac Mini, MacBook Air / Pro, or the Mac Pro workstation. Ideally, these should have retina displays, 8GB of Ram or larger, and an Intel i5 or i7.  Hard disk space should be no smaller than 128GB.
+
+Android development workstation needs are not as prescriptive as Apple's development guidelines.  
+
+For Android development, an 64bit x86 architecture machine (AMD, INTEL) should be fine for development, as the majority of the build tool chain involves Java tooling, open source tools, and the Android SDK. 
+
+##### Build Servers
+
+As with the development workstations, specific "classes" of hardware may be required.
+
+For Android builds, any Linux, x86, 64bit based VM image or hardware based server should suffice.   Network access for administration of build tools and other resource access is required. 
+
+For iOS builds, Apple hardware is required. Typical configurations are datacenter based Mac Mini's, or Mac Pro's.  I have seen, for "bootstrap" / short term needs, that a build machine may be a stand alone Macbook or iMac that is dedicated on the internal network for these tasks.  However, a datacenter managed server is the most optimal hardware deployment configuration desired. 
+
+> __NOTE:__ It is not uncommon for an organization to use a dedicated bank of Mac Mini's as the "build slaves" for a Continuous Integration environment supporting the builds for iOS, for Macs, for Android, for Java general tools, etc.  Keep in mind, a Mac Mini is actually a great *Nix based machine that can run many of the tools that are required to build software. 
 
 ### Collaboration, Documentation, Source Code Management
 
@@ -224,6 +287,9 @@ Google Play has one set of credentials to
 ### Versioning
 
 ### Release Notes
+
+### Key Tools to have
+
 
 
 ## The Deploy Environment
